@@ -1,6 +1,16 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: d13a99ffe924936b061bef638885fa2d4e6dedfe
+  branch: master
+  specs:
+    faker (2.10.2)
+      i18n (>= 1.6, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.4.0)
+    concurrent-ruby (1.1.6)
     discordrb (3.3.0)
       discordrb-webhooks (~> 3.3.0)
       ffi (>= 1.9.24)
@@ -13,17 +23,66 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
+    dry-configurable (0.11.3)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4, >= 0.4.7)
+      dry-equalizer (~> 0.2)
+    dry-container (0.7.2)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.1, >= 0.1.3)
+    dry-core (0.4.9)
+      concurrent-ruby (~> 1.0)
+    dry-equalizer (0.3.0)
+    dry-inflector (0.2.0)
+    dry-initializer (3.0.3)
+    dry-logic (1.0.6)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.2)
+      dry-equalizer (~> 0.2)
+    dry-schema (1.4.3)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.8, >= 0.8.3)
+      dry-core (~> 0.4)
+      dry-equalizer (~> 0.2)
+      dry-initializer (~> 3.0)
+      dry-logic (~> 1.0)
+      dry-types (~> 1.2)
+    dry-types (1.3.1)
+      concurrent-ruby (~> 1.0)
+      dry-container (~> 0.3)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer (~> 0.3)
+      dry-inflector (~> 0.1, >= 0.1.2)
+      dry-logic (~> 1.0, >= 1.0.2)
+    dry-validation (1.4.2)
+      concurrent-ruby (~> 1.0)
+      dry-container (~> 0.7, >= 0.7.1)
+      dry-core (~> 0.4)
+      dry-equalizer (~> 0.2)
+      dry-initializer (~> 3.0)
+      dry-schema (~> 1.4, >= 1.4.3)
     event_emitter (0.2.6)
     ffi (1.12.2)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    i18n (1.8.2)
+      concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     netrc (0.11.0)
+    nio4r (2.5.2)
     opus-ruby (1.0.1)
       ffi
+    parallel (1.19.1)
+    parser (2.7.0.4)
+      ast (~> 2.4.0)
+    pg (1.2.2)
+    puma (4.3.1)
+      nio4r (~> 2.0)
+    rainbow (3.0.0)
     rbnacl (3.4.0)
       ffi
     rest-client (2.1.0)
@@ -31,9 +90,21 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rexml (3.2.4)
+    rubocop (0.80.1)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rexml
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    ruby-progressbar (1.10.1)
+    sequel (5.30.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
+    unicode-display_width (1.6.1)
     websocket (1.2.8)
     websocket-client-simple (0.3.0)
       event_emitter
@@ -45,6 +116,13 @@ PLATFORMS
 DEPENDENCIES
   discordrb
   dotenv
+  dry-validation
+  faker!
+  i18n
+  pg
+  puma
+  rubocop
+  sequel
 
 BUNDLED WITH
    1.17.3
