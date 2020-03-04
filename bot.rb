@@ -34,7 +34,7 @@ bot.command(:roll, description: 'rolls some dice',
 end
 
 bot.command(:attack, description: 'attacks a monster',
-                     usage: 'he attac', min_args: 2) do |event, monster, weapon|
+                     usage: '+attack monster weapon', min_args: 2) do |event, monster, weapon|
   event << "You attack #{monster} with #{weapon} for #{rand(1..10)} damage"
 end
 
@@ -72,6 +72,8 @@ bot.command(:help, aliases: [:h], description: 'list all game commands',
   event << '`+help: "Lists all game commands"`'
   event << '`+roll xdn: "Rolls x number of n sided dice (ex: +roll 2d5)"`'
   event << '`+monsters: Lists all monsters in the bestiary`'
+  event << '`+create_monster: Creates a new monster`'
+  event << '`+create_player: Creates a new player character`'
   event << '`+players: Lists all active players`'
 end
 
@@ -80,6 +82,12 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
   event << '**All known monsters:**'
   event << '`Goblin. 10 HP, 5 ATK`'
   event << '`Owlbear. 20 HP, 12 ATK`'
+  event << DB[:monsters].all.map { |m| "#{m[:name]}, #{m[:alive]}" }
+end
+
+bot.command(:weapons, description: 'lists all weapons',
+                      usage: '+monsters') do |event|
+  event << DB[:weapons].all.map { |w| w[:name] }
 end
 
 bot.message(content: 'dice') do |event|

@@ -1,24 +1,5 @@
 Sequel.migration do
   up do
-    #up do
-    #  create_table :new_table do
-    #    column :id, 'uuid', null: false, default: Sequel.lit('uuid_generate_v4()')
-    #    primary_key [:id]
-    #
-    #    column :created_at, :timestamptz, null: false
-    #    column :updated_at, :timestamptz, null: false
-    #  end
-    #
-    #  pgt_created_at :new_table, :created_at
-    #  pgt_updated_at :new_table, :updated_at
-    #end
-    #
-    #down do
-    #  drop_table :dieties
-    #  run 'DROP FUNCTION IF EXISTS pgt_ca_new_table__created_at();'
-    #  run 'DROP FUNCTION IF EXISTS pgt_ua_new_table__updated_at();'
-    #end
-
     create_table(:monsters) do
       primary_key :id, type: :Bignum
       String :name, null: false
@@ -27,14 +8,14 @@ Sequel.migration do
       TrueClass :alive, default: true, null: false
       Integer :attack, null: false
       Integer :xp_awarded, null: false
-      DateTime :created_at, size: 6, null: false
-      DateTime :updated_at, size: 6, null: false
+      DateTime :created_at, size: 6, null: false, default: Time.now
+      DateTime :updated_at, size: 6, null: false, default: Time.now
     end
 
     create_table(:players) do
       primary_key :id, type: :Bignum
       String :name, null: false
-      String :user, null: false
+      String :user
       String :gender, null: false
       String :character_class, null: false
       String :status
@@ -42,8 +23,8 @@ Sequel.migration do
       String :background
       Integer :attack, null: false
       Integer :experience, default: 1, null: false
-      DateTime :created_at, size: 6, null: false
-      DateTime :updated_at, size: 6, null: false
+      DateTime :created_at, size: 6, null: false, default: Time.now
+      DateTime :updated_at, size: 6, null: false, default: Time.now
     end
 
     create_table(:stats, ignore_index_errors: true) do
@@ -59,8 +40,8 @@ Sequel.migration do
       Integer :charisma, null: false
       Bignum :player_id
       Bignum :monster_id
-      DateTime :created_at, size: 6, null: false
-      DateTime :updated_at, size: 6, null: false
+      DateTime :created_at, size: 6, null: false, default: Time.now
+      DateTime :updated_at, size: 6, null: false, default: Time.now
 
       index [:monster_id], name: :index_stats_on_monster_id
       index [:player_id], name: :index_stats_on_player_id
@@ -68,9 +49,12 @@ Sequel.migration do
 
     create_table(:weapons) do
       primary_key :id, type: :Bignum
-      String :name
-      DateTime :created_at, size: 6, null: false
-      DateTime :updated_at, size: 6, null: false
+      column :name, :text
+      Bignum :player_id
+      DateTime :created_at, size: 6, null: false, default: Time.now
+      DateTime :updated_at, size: 6, null: false, default: Time.now
+
+      index [:player_id], name: :index_weapons_on_player_id
     end
   end
 

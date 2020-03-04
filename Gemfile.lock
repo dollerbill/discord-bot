@@ -101,6 +101,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
     sequel (5.30.0)
+    sequel_postgresql_triggers (1.5.0)
+      sequel
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -123,6 +125,7 @@ DEPENDENCIES
   puma
   rubocop
   sequel
+  sequel_postgresql_triggers
 
 BUNDLED WITH
    1.17.3
