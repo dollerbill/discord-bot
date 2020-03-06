@@ -2,7 +2,6 @@ Sequel.migration do
   up do
     create_table(:monsters) do
       primary_key :id, type: :Bignum
-      String :name, null: false
       String :race, null: false
       String :status
       TrueClass :alive, default: true, null: false
@@ -38,8 +37,8 @@ Sequel.migration do
       Integer :intelligence, null: false
       Integer :wisdom, null: false
       Integer :charisma, null: false
-      Bignum :player_id
       Bignum :monster_id
+      Bignum :player_id
       DateTime :created_at, size: 6, null: false, default: Time.now
       DateTime :updated_at, size: 6, null: false, default: Time.now
 
@@ -49,11 +48,13 @@ Sequel.migration do
 
     create_table(:weapons) do
       primary_key :id, type: :Bignum
-      column :name, :text
+      column :type, :text
+      Bignum :monster_id
       Bignum :player_id
       DateTime :created_at, size: 6, null: false, default: Time.now
       DateTime :updated_at, size: 6, null: false, default: Time.now
 
+      index [:monster_id], name: :index_weapons_on_monster_id
       index [:player_id], name: :index_weapons_on_player_id
     end
   end

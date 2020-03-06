@@ -68,6 +68,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    inflecto (0.0.2)
     jaro_winkler (1.5.4)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -121,6 +122,7 @@ DEPENDENCIES
   dry-validation
   faker!
   i18n
+  inflecto
   pg
   puma
   rubocop

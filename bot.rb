@@ -4,6 +4,7 @@ require 'faker'
 require 'pg'
 require 'sequel'
 require_relative 'config/init/configure_sequel'
+require_relative 'services/monster/create'
 
 dnd = Faker::Games::DungeonsAndDragons
 bot = Discordrb::Commands::CommandBot.new(token: ENV['TOKEN'], prefix: '+')
@@ -47,19 +48,13 @@ bot.command(:create_player, description: 'creates a new player character',
            alignment: dnd.alignment, background: dnd.background,
            created_at: t, updated_at: t, user: event.user.name }
   players = DB[:players]
-  player = players.insert(
-    atts
-    # name: n, gender: g, character_class: c, attack: at, created_at: t, updated_at: t
-  )
+  player = players.insert(atts)
   event << players.order(:created_at).last
 end
 
 bot.command(:create_monster, description: 'hi',
-                             usage: 'monster') do |event|
-  monsters = DB[:monsters]
-  monsters.insert(name: dnd.name, alive: true, race: dnd.race, attack: rand(1..10),
-                  xp_awarded: rand(5..10), created_at: t, updated_at: t)
-  monster = monsters.order(:created_at).last
+                             usage: 'monster') do |event, boss|
+  monster = Monster::Create.(boss)
   event << "A #{monster[:race]} appears!"
 end
 
@@ -78,29 +73,47 @@ bot.command(:help, aliases: [:h], description: 'list all game commands',
 end
 
 bot.command(:monsters, description: 'lists all monsters in the bestiary',
-                       usage: 'monstermash') do |event|
-  event << '**All known monsters:**'
-  event << '`Goblin. 10 HP, 5 ATK`'
-  event << '`Owlbear. 20 HP, 12 ATK`'
-  event << DB[:monsters].all.map { |m| "#{m[:name]}, #{m[:alive]}" }
+                       usage: '+monsters') do |event|
+  # event << '**All known monsters:**'
+  alive = DB[:monsters].where(alive: true)
+  names = alive.map { |m| m[:name] }
+  if alive.count == 0
+    event << 'You see no monsters in the area.'
+  elsif alive.count == 1
+    event << "You see a #{alive.first[:name]}!"
+  else
+    msg = "You're surrounded by "
+    names.each_with_index do |m, i|
+      msg += if i == names.length - 1
+               "and a #{m}!"
+             else
+               "a #{m}, "
+        end
+    end
+    event << msg
+  end
+
+  # event << DB[:monsters].where(alive: true).map { |m| m[:name] }
 end
 
-bot.command(:weapons, description: 'lists all weapons',
-                      usage: '+monsters') do |event|
-  event << DB[:weapons].all.map { |w| w[:name] }
+bot.command(:test) do |_e|
+  # e << dnd.race
+  # e << dnd.character_class
+  Monster::Create.()
 end
 
-bot.message(content: 'dice') do |event|
-  event.respond 'how many dice'
-end
+# bot.command(:weapons, description: 'lists all weapons',
+#                      usage: '+monsters') do |event|
+#  event << DB[:weapons].all.map { |w| w[:name] }
+# end
+#
+# bot.message(content: 'dice') do |event|
+#  event.respond 'how many dice'
+# end
 
 bot.mention do |event|
   event.user.pm("You are #{event.user.name}!")
   event.respond "Hey #{event.user.name}"
 end
-
-# bot.message do |e|
-#  e.respond "It is #{e.timestamp}"
-# end
 
 bot.run
