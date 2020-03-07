@@ -1,5 +1,6 @@
 require 'sequel'
 require 'rake/testtask'
+require 'pathname'
 
 namespace :db do
   desc 'Run migrations'
@@ -22,6 +23,17 @@ task :annotate do
   require 'sequel/annotate'
   Sequel::Annotate.annotate(Dir['models/*.rb'], position: :before)
 end
+
+desc 'Seed the database'
+task :seed do
+  APP = OpenStruct.new
+  APP.env = ENV['RACK_ENV']
+  APP.root = Pathname.new(File.expand_path(__dir__)).freeze
+  APP.config_dir = APP.root.join('config').freeze
+
+  load(APP.root.join('db', 'seeds.rb'))
+end
+
 
 
 task m: ['generate:migration:create']

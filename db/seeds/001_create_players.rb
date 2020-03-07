@@ -1,0 +1,5 @@
+DB = Sequel.connect('postgres://postgres:postgres@localhost:5432/dndiscord_development')
+DB[:players].insert(name: 'Bilbo', character_class: 'Paladin', gender: 'male', attack: 6)
+DB[:players].insert(name: 'Junebug', character_class: 'Rogue', gender: 'male', attack: 4)
+DB[:monsters].insert(race: 'Wolf', attack: 5, xp_awarded: 10)
+DB[:monsters].insert(race: 'Bugbear', attack: 15, xp_awarded: 22)
