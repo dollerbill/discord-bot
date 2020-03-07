@@ -2,6 +2,19 @@ AllCops:
   TargetRubyVersion: 2.5.7
   Exclude:
     - 'Gemfile'
+Layout/LineLength:
+  Max: 100
+  IgnoredPatterns: ['\A#']
+Metrics/BlockLength:
+  Exclude:
+    - 'apps/*/application.rb'
+    - 'db/migrations/*'
+    - 'lib/tasks/*.rb'
+    - 'Rakefile'
+    - 'spec/**/*.rb'
+    - 'config/init/*.rb'
+Metrics/MethodLength:
+  Max: 30
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 Naming/BlockParameterName:
@@ -11,6 +24,8 @@ Naming/MethodParameterName:
 Naming/VariableNumber:
   Enabled: false
 Style/Alias:
+  Enabled: false
+Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false

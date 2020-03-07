@@ -84,6 +84,7 @@ GEM
     puma (4.3.3)
       nio4r (~> 2.0)
     rainbow (3.0.0)
+    rake (13.0.1)
     rbnacl (3.4.0)
       ffi
     rest-client (2.1.0)
@@ -125,6 +126,7 @@ DEPENDENCIES
   inflecto
   pg
   puma
+  rake
   rubocop
   sequel
   sequel_postgresql_triggers

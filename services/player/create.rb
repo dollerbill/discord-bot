@@ -1,6 +1,6 @@
 require 'faker'
 
-class Monster
+class Player
   module Create
     MODEL_ATTS = %i[
       alive
@@ -13,12 +13,14 @@ class Monster
 
     class << self
       def call(boss)
-        DB[:monsters].insert(
+        DB[:players].insert(
           race: Faker::Games::DungeonsAndDragons.race,
           attack: boss ? rand(20..30) : rand(1..10),
           xp_awarded: boss ? rand(40..50) : rand(1..10)
         )
-        DB[:monsters].order(:id).last
+        satts = { hp: 20, level: 1 }
+        Stats::Create.(satts)
+        DB[:players].order(:id).last
 
         # monsters.insert(race: dnd.race, attack: rand(1..10),
         #                xp_awarded: rand(5..10), created_at: t, updated_at: t)
