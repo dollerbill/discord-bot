@@ -5,7 +5,6 @@ class Player
     MODEL_ATTS = %i[
       alive
       attack
-      boss
       race
       status
       xp_awarded
@@ -17,14 +16,10 @@ class Player
           race: Faker::Games::DungeonsAndDragons.race,
           attack: rand(1..10),
           xp_awarded: rand(1..10)
-        )
-        satts = { hp: 20, level: 1 }
-        Stats::Create.(satts)
+        ).tap do |p|
+          Stats::Create.create_player({ hp: 10, level: 1, max_hp: 10, player_id: p })
+        end
         DB[:players].order(:id).last
-
-        # monsters.insert(race: dnd.race, attack: rand(1..10),
-        #                xp_awarded: rand(5..10), created_at: t, updated_at: t)
-        # Monster.new(atts.slice(*MODEL_ATTS)).tap do |m|
       end
     end
   end

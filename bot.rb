@@ -39,16 +39,20 @@ bot.command(:attack, description: 'attacks a monster',
   event << "You attack #{monster} with #{weapon} for #{rand(1..10)} damage"
 end
 
+bot.command(:check_player, description: 'shows player stats',
+usage: '+check player') do |event|
+  p = DB[:players].where(user: event.user.name).first
+  event << "Player #{p[:name]} - Current HP: #{p[:hp]}. Max HP: #{p[:max_hp]}. Ailments: #{p[:status] || 'none'}"
+
 bot.command(:create_player, description: 'creates a new player character',
-                            usage: 'create player', min_args: 4) do |event, n, g, c, a|
+                            usage: '+create player', min_args: 4) do |event, n, g, c, a|
   next 'Invalid syntax... try: `create_player Bob, male, Paladin, 5`' unless
       n && g && c && (at = Integer(a, 10))
 
   atts = { name: n, gender: g, character_class: c, attack: at,
            alignment: dnd.alignment, background: dnd.background,
            created_at: t, updated_at: t, user: event.user.name }
-  players = DB[:players]
-  player = players.insert(atts)
+  Player::Create.(atts)
   event << players.order(:created_at).last
 end
 
@@ -96,7 +100,7 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
   # event << DB[:monsters].where(alive: true).map { |m| m[:name] }
 end
 
-bot.command(:test) do |_e|
+bot.command(:test) do |e|
   # e << dnd.race
   # e << dnd.character_class
   Monster::Create.()

@@ -17,10 +17,8 @@ class Stat
         )
       end
 
-      # DB[:stats].insert(level: 1, hp: 1, max_hp: 1, strength: stats[0], dexterity: stats[1],
-      #                  wisdom: stats[2], intelligence: stats[3], charisma: stats[4],
-      #                  constitution: stats[5], player_id: player)
       def create_monster(atts)
+        atts.update(hp: 50, level: 5, max_hp: 50) unless atts[:boss].nil?
         call(atts)
       end
 
@@ -33,7 +31,7 @@ class Stat
       def generate_stats
         stats = [*1..18].sample(6) until (stats || []).inject(:+) == 75
         stats
-        end
+      end
     end
   end
 end
