@@ -13,11 +13,12 @@ class Monster
 
     class << self
       def call(boss)
-        DB[:monsters].insert(
+        monster = DB[:monsters].insert(
           race: Faker::Games::DungeonsAndDragons.race,
           attack: boss ? rand(20..30) : rand(1..10),
           xp_awarded: boss ? rand(40..50) : rand(1..10)
         )
+        Stat::Create.create_monster({ monster_id: monster })
         DB[:monsters].order(:id).last
 
         # monsters.insert(race: dnd.race, attack: rand(1..10),

@@ -12,11 +12,11 @@ class Player
     ].freeze
 
     class << self
-      def call(boss)
+      def call(_atts)
         DB[:players].insert(
           race: Faker::Games::DungeonsAndDragons.race,
-          attack: boss ? rand(20..30) : rand(1..10),
-          xp_awarded: boss ? rand(40..50) : rand(1..10)
+          attack: rand(1..10),
+          xp_awarded: rand(1..10)
         )
         satts = { hp: 20, level: 1 }
         Stats::Create.(satts)
