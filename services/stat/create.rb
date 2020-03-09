@@ -11,10 +11,10 @@ class Stat
     class << self
       def call(atts)
         stats = generate_stats
-        DB[:stats].insert(atts.slice(*MODEL_ATTS)).merge!(
-          strength: stats[0], dexterity: stats[1], wisdom: stats[2],
-          intelligence: stats[3], charisma: stats[4], constitution: stats[5]
-        )
+        Stat.create(atts.slice(*MODEL_ATTS).merge!(
+                      strength: stats[0], dexterity: stats[1], wisdom: stats[2],
+                      intelligence: stats[3], charisma: stats[4], constitution: stats[5]
+                    ))
       end
 
       def create_monster(atts)

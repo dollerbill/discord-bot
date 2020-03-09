@@ -1,10 +1,12 @@
 require 'dotenv/load'
 require 'discordrb'
 require 'faker'
-require 'pg'
+# require 'pg'
+require 'rake'
 require 'sequel'
 require_relative 'config/init/configure_sequel'
-require_relative 'services/monster/create'
+require_relative 'config/init/configure_models'
+Dir['services/**/*.rb'].each { |file| require_relative file }
 
 dnd = Faker::Games::DungeonsAndDragons
 bot = Discordrb::Commands::CommandBot.new(token: ENV['TOKEN'], prefix: '+')
@@ -27,11 +29,10 @@ bot.command(:roll, description: 'rolls some dice',
   end
 
   # Time to roll the dice!
-  rolls = Array.new(number) { rand(1..sides) }
-  sum = rolls.reduce(:+)
+  rolled = Stat::DiceRoll.(number, sides)
 
   # Return the result
-  "#{event.user.name} rolled: `#{rolls}`, total: `#{sum}`"
+  "#{event.user.name} #{rolled}"
 end
 
 bot.command(:attack, description: 'attacks a monster',
@@ -40,9 +41,11 @@ bot.command(:attack, description: 'attacks a monster',
 end
 
 bot.command(:check_player, description: 'shows player stats',
-usage: '+check player') do |event|
-  p = DB[:players].where(user: event.user.name).first
-  event << "Player #{p[:name]} - Current HP: #{p[:hp]}. Max HP: #{p[:max_hp]}. Ailments: #{p[:status] || 'none'}"
+                           usage: '+check player') do |event|
+  p = Player.find(user: event.user.name)
+  msg = "Player #{p[:name]} - HP: #{p[:hp]}/#{p[:max_hp]}. Status: #{p[:status] || 'Healthy'}"
+  event << msg
+end
 
 bot.command(:create_player, description: 'creates a new player character',
                             usage: '+create player', min_args: 4) do |event, n, g, c, a|
@@ -52,8 +55,8 @@ bot.command(:create_player, description: 'creates a new player character',
   atts = { name: n, gender: g, character_class: c, attack: at,
            alignment: dnd.alignment, background: dnd.background,
            created_at: t, updated_at: t, user: event.user.name }
-  Player::Create.(atts)
-  event << players.order(:created_at).last
+  p = Player::Create.(atts)
+  event << "#{p[:name]}, level: #{p.stat[:level]}, current hp: #{p.stat[:hp]}/#{p.stat[:max_hp]}"
 end
 
 bot.command(:create_monster, description: 'hi',
@@ -79,7 +82,7 @@ end
 bot.command(:monsters, description: 'lists all monsters in the bestiary',
                        usage: '+monsters') do |event|
   # event << '**All known monsters:**'
-  alive = DB[:monsters].where(alive: true)
+  alive = Monster.where(alive: true)
   names = alive.map { |m| m[:name] }
   if alive.count == 0
     event << 'You see no monsters in the area.'
@@ -92,7 +95,7 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
                "and a #{m}!"
              else
                "a #{m}, "
-        end
+             end
     end
     event << msg
   end
@@ -100,10 +103,12 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
   # event << DB[:monsters].where(alive: true).map { |m| m[:name] }
 end
 
-bot.command(:test) do |e|
+bot.command(:test) do |_e|
   # e << dnd.race
   # e << dnd.character_class
-  Monster::Create.()
+  Rake.application['db:reset'].reenable
+  Rake::Task['db:reset'].invoke
+  # Stat::DiceRoll.(1, 4)
 end
 
 # bot.command(:weapons, description: 'lists all weapons',

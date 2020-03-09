@@ -4,6 +4,8 @@ AllCops:
     - 'Gemfile'
 Layout/LineLength:
   Max: 100
+  Exclude:
+    - 'db/seeds/*'
   IgnoredPatterns: ['\A#']
 Metrics/BlockLength:
   Exclude:
