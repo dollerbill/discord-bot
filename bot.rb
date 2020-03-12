@@ -2,7 +2,7 @@ require 'dotenv/load'
 require 'discordrb'
 require 'faker'
 # require 'pg'
-require 'rake'
+require_relative 'Rakefile'
 require 'sequel'
 require_relative 'config/init/configure_sequel'
 require_relative 'config/init/configure_models'
@@ -43,7 +43,8 @@ end
 bot.command(:check_player, description: 'shows player stats',
                            usage: '+check player') do |event|
   p = Player.find(user: event.user.name)
-  msg = "Player #{p[:name]} - HP: #{p[:hp]}/#{p[:max_hp]}. Status: #{p[:status] || 'Healthy'}"
+  msg = "Player: #{p.name}. Level: #{p.stat.level}. HP: #{p.stat.hp}/#{p.stat.max_hp}. "\
+      "Status: #{p[:status] || 'Healthy'}"
   event << msg
 end
 
@@ -103,12 +104,17 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
   # event << DB[:monsters].where(alive: true).map { |m| m[:name] }
 end
 
-bot.command(:test) do |_e|
+bot.command(:start_game, description: 'Begins a new game',
+                         usage: '+start_game') do |e|
+  Rake::Task['db:reset'].reenable
+  Rake::Task['db:reset'].invoke
+  e << 'You enter a dark and gloomy forrest...'
+end
+
+bot.command(:test) do |e|
   # e << dnd.race
   # e << dnd.character_class
-  Rake.application['db:reset'].reenable
-  Rake::Task['db:reset'].invoke
-  # Stat::DiceRoll.(1, 4)
+   Stat::DiceRoll.(1, 4)
 end
 
 # bot.command(:weapons, description: 'lists all weapons',
