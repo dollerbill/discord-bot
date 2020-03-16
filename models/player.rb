@@ -1,19 +1,20 @@
 # Table: players
 # Columns:
 #  id              | bigint                      | PRIMARY KEY DEFAULT nextval('players_id_seq'::regclass)
-#  name            | text                        | NOT NULL
-#  user            | text                        |
-#  gender          | text                        | NOT NULL
-#  character_class | text                        | NOT NULL
-#  status          | text                        |
 #  alignment       | text                        |
 #  background      | text                        |
-#  attack          | integer                     | NOT NULL
-#  experience      | integer                     | NOT NULL DEFAULT 1
-#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-05 22:11:52.249332'::timestamp without time zone
-#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-05 22:11:52.249334'::timestamp without time zone
+#  character_class | text                        | NOT NULL
+#  gender          | text                        | NOT NULL
+#  name            | text                        | NOT NULL
+#  user            | text                        |
+#  stat_id         | bigint                      |
+#  weapon_id       | bigint                      |
+#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.29263'::timestamp without time zone
+#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.292633'::timestamp without time zone
 # Indexes:
-#  players_pkey | PRIMARY KEY btree (id)
+#  players_pkey               | PRIMARY KEY btree (id)
+#  index_players_on_stat_id   | btree (stat_id)
+#  index_players_on_weapon_id | btree (weapon_id)
 
 class Player < Sequel::Model
   # extend DSL::Enums
@@ -22,6 +23,6 @@ class Player < Sequel::Model
   #                 Invisible Paralyzed Petrified Poisoned Prone Restrained
   #                 Stunned Unconscious]
 
-  one_to_one :stat
-  one_to_one :weapon
+  many_to_one :stat
+  many_to_one :weapon
 end
