@@ -9,8 +9,8 @@
 #  user            | text                        |
 #  stat_id         | bigint                      |
 #  weapon_id       | bigint                      |
-#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.29263'::timestamp without time zone
-#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.292633'::timestamp without time zone
+#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.32812'::timestamp without time zone
+#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.328122'::timestamp without time zone
 # Indexes:
 #  players_pkey               | PRIMARY KEY btree (id)
 #  index_players_on_stat_id   | btree (stat_id)

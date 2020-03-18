@@ -13,7 +13,7 @@ bot = Discordrb::Commands::CommandBot.new(token: ENV['TOKEN'], prefix: '+')
 t = Time.now
 
 bot.command(:roll, description: 'rolls some dice',
-                   usage: 'roll 2d6', min_args: 1) do |event, dice|
+                   usage: 'roll 2d6', min_args: 1) do |e, dice|
   # Parse the input
   number, sides = dice.split('d')
 
@@ -32,20 +32,36 @@ bot.command(:roll, description: 'rolls some dice',
   rolled = Stat::DiceRoll.(number, sides)
 
   # Return the result
-  "#{event.user.name} #{rolled}"
+  "#{e.user.name} rolled: `#{rolled[0]}`, total: `#{rolled[1]}`"
 end
 
+# TODO: don't allow attacking dead players/ monsters
+# TODO: make attack, etc DM only? have player roll and DM calls
+# TODO: average dice roll?
 bot.command(:attack, description: 'attacks a monster',
-                     usage: '+attack monster weapon', min_args: 2) do |event, monster, weapon|
-  event << "You attack #{monster} with #{weapon} for #{rand(1..10)} damage"
+                     usage: '+attack monster weapon', min_args: 1) do |e, monster|
+  player = Player.find(user: e.user.name)
+  monster = Monster.first(race: monster)
+  hit_roll = Stat::DiceRoll.d20
+  e << Attack::Attack.(player, monster, hit_roll)
+end
+
+bot.command(:monster_attack, description: 'attacks a monster',
+                             usage: '+attack monster weapon', min_args: 2) do |e, monster, player|
+  next 'Only the DM can attack for monsters!' unless e.user.name == Player[1].user
+
+  player = Player.find(name: player)
+  monster = Monster.first(race: monster)
+  hit_roll = Stat::DiceRoll.d20
+  e << Attack::Attack.(monster, player, hit_roll)
 end
 
 bot.command(:check_player, description: 'shows player stats',
-                           usage: '+check player') do |event|
+                           usage: '+check player') do |e|
   p = Player.find(user: event.user.name)
   msg = "Player: #{p.name}. Level: #{p.stat.level}. HP: #{p.stat.hp}/#{p.stat.max_hp}. "\
       "Status: #{p[:status] || 'Healthy'}"
-  event << msg
+  e << msg
 end
 
 bot.command(:create_player, description: 'creates a new player character',
@@ -81,14 +97,14 @@ bot.command(:help, aliases: [:h], description: 'list all game commands',
 end
 
 bot.command(:monsters, description: 'lists all monsters in the bestiary',
-                       usage: '+monsters') do |event|
+                       usage: '+monsters') do |e|
   # event << '**All known monsters:**'
   alive = Monster.where(alive: true)
   names = alive.map { |m| m[:name] }
   if alive.count == 0
-    event << 'You see no monsters in the area.'
+    e << 'You see no monsters in the area.'
   elsif alive.count == 1
-    event << "You see a #{alive.first[:name]}!"
+    e << "You see a #{alive.first[:name]}!"
   else
     msg = "You're surrounded by "
     names.each_with_index do |m, i|
@@ -98,7 +114,7 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
                "a #{m}, "
              end
     end
-    event << msg
+    e << msg
   end
 
   # event << DB[:monsters].where(alive: true).map { |m| m[:name] }
@@ -111,10 +127,9 @@ bot.command(:start_game, description: 'Begins a new game',
   e << 'You enter a dark and gloomy forrest...'
 end
 
-bot.command(:test) do |e|
+bot.command(:test) do |_e|
   # e << dnd.race
-  # e << dnd.character_class
-   Stat::DiceRoll.(1, 4)
+  Player[1].name  #Attack::Attack.determine_attacker(Monster.first)
 end
 
 # bot.command(:weapons, description: 'lists all weapons',

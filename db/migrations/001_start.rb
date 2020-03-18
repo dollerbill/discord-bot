@@ -4,6 +4,7 @@ Sequel.migration do
       primary_key :id, type: :Bignum
       Integer :attack, null: false
       Integer :xp_awarded, null: false
+      String :attack_roll
       String :race, null: false
       Bignum :stat_id
       DateTime :created_at, size: 6, null: false, default: Time.now

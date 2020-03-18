@@ -14,8 +14,8 @@
 #  wisdom       | integer                     | NOT NULL
 #  status       | text                        |
 #  alive        | boolean                     | NOT NULL DEFAULT true
-#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.297266'::timestamp without time zone
-#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-03-15 23:42:16.297268'::timestamp without time zone
+#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.331823'::timestamp without time zone
+#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.331825'::timestamp without time zone
 # Indexes:
 #  stats_pkey | PRIMARY KEY btree (id)
 
