@@ -41,10 +41,13 @@ Sequel.migration do
       Integer :intelligence, null: false
       Integer :level, null: false
       Integer :max_hp, null: false
+      Integer :failure, null: false, default: 0
+      Integer :success, null: false, default: 0
       Integer :strength, null: false
       Integer :wisdom, null: false
       String :status
       TrueClass :alive, default: true, null: false
+      TrueClass :unconscious, default: false, null: false
       DateTime :created_at, size: 6, null: false, default: Time.now
       DateTime :updated_at, size: 6, null: false, default: Time.now
     end
