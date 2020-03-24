@@ -29,6 +29,33 @@ bot.command(:attack, description: 'attacks a monster using your attack roll',
   e << Attack::Attack.(player, monster, hit_roll, weapon)
 end
 
+bot.command(:award_items, description: 'award items after battle',
+                          usage: '+award_items ') do |e, player, items|
+end
+
+bot.command(:award_xp, description: 'award xp after battle',
+                       usage: '+ award_xp player,player monster,monster') do |e, p, m|
+  players = Array(p.split(','))
+  next 'no players' unless players.each { |p| Player.first(name: p) }
+
+  monsters = Array(m.split(','))
+  next 'no monsters' unless monsters.each { |m| Monster.first(race: m) }
+
+  # Array(names).each do |n|
+  #  n.push n.is_a?(Player)
+  # end
+  # next "bad" unless p.to_a.is_a?(Array) && m.to_a.is_a?(Array)
+  e << Array(p.split(','))
+  e << Array(m.split(','))
+end
+
+bot.command(:list_monsters, description: 'lists all monsters in the bestiary',
+                            usage: '+list_monsters') do |e|
+  Monster.all.each do |m|
+    e << "#{m.race}, #{m.id}"
+  end
+end
+
 bot.command(:monster_attack, description: 'attacks a monster',
                              usage: '+attack monster weapon', min_args: 2) do |e, monster, name|
   # next 'Only the DM can attack for monsters!' unless e.user.name == Player[1].user
@@ -144,8 +171,8 @@ bot.command(:stats, description: 'shows player stats',
 end
 
 bot.command(:test) do |_e|
-  # e << dnd.race
-  Player[1].name # Attack::Attack.determine_attacker(Monster.first)
+  Player::Level.([Player[3], Player[2]], [Monster[1], Monster[2]]) # e << dnd.race
+  # Player[1].name # Attack::Attack.determine_attacker(Monster.first)
 end
 
 bot.command(:weapons, description: 'lists all weapons',

@@ -36,7 +36,7 @@ Sequel.migration do
       Integer :charisma, null: false
       Integer :constitution, null: false
       Integer :dexterity, null: false
-      Integer :experience, default: 1, null: false
+      Integer :experience, default: 0, null: false
       Integer :hp, null: false
       Integer :intelligence, null: false
       Integer :level, null: false
