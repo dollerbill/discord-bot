@@ -7,10 +7,12 @@
 #  gender          | text                        | NOT NULL
 #  name            | text                        | NOT NULL
 #  user            | text                        |
+#  hit_die         | integer                     | NOT NULL
+#  hit_dice        | integer                     | NOT NULL DEFAULT 1
 #  stat_id         | bigint                      |
 #  weapon_id       | bigint                      |
-#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.32812'::timestamp without time zone
-#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-03-17 23:22:13.328122'::timestamp without time zone
+#  created_at      | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.347715'::timestamp without time zone
+#  updated_at      | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.347717'::timestamp without time zone
 # Indexes:
 #  players_pkey               | PRIMARY KEY btree (id)
 #  index_players_on_stat_id   | btree (stat_id)

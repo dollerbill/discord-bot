@@ -2,16 +2,23 @@ class Player
   module Level
     class << self
       def call(players, monsters)
+        xp = calculate_xp(players, monsters)
+        players.each do |p|
+          p.stat.set(experience: p.stat.experience += xp).save
+
+          @lvl = level_up(p)
+        end
+        @lvl || "#{players.map(&:name).join(', ')} have gained #{xp} XP."
+      end
+
+      def calculate_xp(players, monsters)
         @xp = 0
         monsters.each do |m|
           @xp += m.xp_awarded
         end
-        players.each do |p|
-          p.stat.set(experience: p.stat.experience += @xp).save
-
-          level_up(p)
-        end
-        "#{players.map(&:name).join(', ')} have gained #{@xp} XP."
+        @xp *= modifier(monsters)
+        @xp /= players.count
+        @xp.round
       end
 
       def level_up(player)
@@ -22,8 +29,26 @@ class Player
           15 => 165_000, 16 => 195_000, 17 => 225_000, 18 => 265_000, 19 => 305_000, 20 => 355_000
         }
         xps.each do |k, v|
-          p.set(level: k).save if p.experience >= v
+          p.set(level: k, hit_dice: k, hit_dice_max: k).save if p.experience >= v
+          return "#{player} is level #{k}."
         end
+      end
+
+      def modifier(monsters)
+        mod = if monsters.count == 1
+                1
+              elsif monsters.count == 2
+                1.5
+              elsif monsters.count < 7
+                2
+              elsif monsters.count < 11
+                2.5
+              elsif monsters.count < 15
+                3
+              else
+                4
+              end
+        mod
       end
     end
   end

@@ -21,6 +21,9 @@ Sequel.migration do
       String :gender, null: false
       String :name, null: false
       String :user
+      Integer :hit_die, null: false
+      Integer :hit_dice, null: false, default: 1
+      Integer :hit_dice_max, null: false, default: 1
       Bignum :stat_id
       Bignum :weapon_id
       DateTime :created_at, size: 6, null: false, default: Time.now
@@ -38,9 +41,9 @@ Sequel.migration do
       Integer :dexterity, null: false
       Integer :experience, default: 0, null: false
       Integer :hp, null: false
+      Integer :hp_max, null: false
       Integer :intelligence, null: false
-      Integer :level, null: false
-      Integer :max_hp, null: false
+      Integer :level, null: false, default: 1
       Integer :failure, null: false, default: 0
       Integer :success, null: false, default: 0
       Integer :strength, null: false

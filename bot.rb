@@ -49,6 +49,11 @@ bot.command(:award_xp, description: 'award xp after battle',
   e << Array(m.split(','))
 end
 
+bot.command(:rest, description: 'heals a player',
+                   usage: '+heal Elrond ') do |_e|
+  Player::Heal.rest
+end
+
 bot.command(:list_monsters, description: 'lists all monsters in the bestiary',
                             usage: '+list_monsters') do |e|
   Monster.all.each do |m|
@@ -92,15 +97,16 @@ end
 # PLAYER METHODS
 
 bot.command(:create_player, description: 'creates a new player character',
-                            usage: '+create player', min_args: 4) do |event, n, g, c, a|
-  next 'Invalid syntax... try: `create_player Bob, male, Paladin, 5`' unless
-      n && g && c && (at = Integer(a, 10))
+                            usage: '+create_player', min_args: 3) do |event, n, g, c|
+  next 'Invalid syntax... try: `+create_player Bob male Paladin`' if
+      (n + g + c).include?(',')
 
-  atts = { name: n, gender: g, character_class: c, attack: at,
+  atts = { name: n, gender: g, character_class: c,
            alignment: dnd.alignment, background: dnd.background,
            created_at: t, updated_at: t, user: event.user.name }
   p = Player::Create.(atts)
-  event << "#{p[:name]}, level: #{p.stat[:level]}, current hp: #{p.stat[:hp]}/#{p.stat[:max_hp]}"
+  event << atts
+  event << "#{p[:name]}, level: #{p.stat[:level]}, current hp: #{p.stat[:hp]}/#{p.stat[:hp_max]}"
 end
 
 bot.command(:help, aliases: [:h], description: 'list all game commands',
@@ -164,8 +170,8 @@ end
 
 bot.command(:stats, description: 'shows player stats',
                     usage: '+stats') do |e|
-  p = Player.find(user: event.user.name)
-  msg = "Player: #{p.name}. Level: #{p.stat.level}. HP: #{p.stat.hp}/#{p.stat.max_hp}. "\
+  p = Player.find(user: e.user.name)
+  msg = "Player: #{p.name}. Level: #{p.stat.level}. HP: #{p.stat.hp}/#{p.stat.hp_max}. "\
       "Status: #{p[:status] || 'Healthy'}"
   e << msg
 end

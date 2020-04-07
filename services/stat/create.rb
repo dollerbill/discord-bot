@@ -3,7 +3,7 @@ class Stat
     MODEL_ATTS = %i[
       hp
       level
-      max_hp
+      hp_max
       monster_id
       player_id
     ].freeze
@@ -11,6 +11,7 @@ class Stat
     class << self
       def call(atts)
         stats = generate_stats
+        atts[hp: atts[:hit_die] + stats[5], hp_max: atts[:hit_die] + stats[5]] if atts[:hit_die]
         Stat.create(atts.slice(*MODEL_ATTS).merge!(
                       strength: stats[0], dexterity: stats[1], wisdom: stats[2],
                       intelligence: stats[3], charisma: stats[4], constitution: stats[5]
@@ -18,7 +19,7 @@ class Stat
       end
 
       def create_monster(atts)
-        atts.update(hp: 50, level: 5, max_hp: 50) unless atts[:boss].nil?
+        atts.update(hp: 50, level: 5, hp_max: 50) unless atts[:boss].nil?
         call(atts)
       end
 
