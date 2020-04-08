@@ -6,9 +6,9 @@ class Player
         players.each do |p|
           p.stat.set(experience: p.stat.experience += xp).save
 
-          @lvl = level_up(p)
+          level_up(p)
         end
-        @lvl || "#{players.map(&:name).join(', ')} have gained #{xp} XP."
+        "#{players.map(&:name).join(', ')} have gained #{xp} XP."
       end
 
       def calculate_xp(players, monsters)
@@ -30,7 +30,6 @@ class Player
         }
         xps.each do |k, v|
           p.set(level: k, hit_dice: k, hit_dice_max: k).save if p.experience >= v
-          return "#{player} is level #{k}."
         end
       end
 

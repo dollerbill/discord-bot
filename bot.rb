@@ -41,17 +41,18 @@ bot.command(:award_xp, description: 'award xp after battle',
   monsters = Array(m.split(','))
   next 'no monsters' unless monsters.each { |m| Monster.first(race: m) }
 
-  # Array(names).each do |n|
-  #  n.push n.is_a?(Player)
-  # end
-  # next "bad" unless p.to_a.is_a?(Array) && m.to_a.is_a?(Array)
-  e << Array(p.split(','))
-  e << Array(m.split(','))
+  players.map! { |p| Player.find(name: p) }
+  monsters.map! { |p| Monster.find(race: p) }
+  e << Player::Level.(players, monsters)
 end
 
-bot.command(:rest, description: 'heals a player',
-                   usage: '+heal Elrond ') do |_e|
-  Player::Heal.rest
+bot.command(:long_rest, description: 'provides a long rest',
+                        usage: '+long_rest player,player,player ') do |e, p|
+  players = Array(p.split(','))
+  next 'no players' unless players.each { |p| Player.first(name: p) }
+
+  players.map! { |p| Player.find(name: p) }
+  e << Player::Heal.long_rest(players)
 end
 
 bot.command(:list_monsters, description: 'lists all monsters in the bestiary',
@@ -146,12 +147,12 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
 end
 
 bot.command(:roll, description: 'rolls some dice',
-                   usage: 'roll 2d6', min_args: 1) do |e, dice|
+                   usage: '+roll 2d6', min_args: 1) do |e, dice|
   # Parse the input
   number, sides = dice.split('d')
 
   # Check for valid input; make sure we got both numbers
-  next 'Invalid syntax.. try: `roll 2d10`' unless number && sides
+  next 'Invalid syntax.. try: `+roll 2d10`' unless number && sides
 
   # Check for valid input; make sure we actually got numbers and not words
   begin
@@ -168,6 +169,15 @@ bot.command(:roll, description: 'rolls some dice',
   "#{e.user.name} rolled: `#{rolled[0]}`, total: `#{rolled[1]}`"
 end
 
+bot.command(:short_rest, description: 'provides a player a short rest',
+                         usage: '+short_rest 6 ') do |e, p, roll|
+  p = Player.find(name: p)
+  roll = Integer(roll, 10)
+  next 'incorrect hit dice roll' unless roll <= p.hit_die
+
+  e << Player::Heal.short_rest(p, roll)
+end
+
 bot.command(:stats, description: 'shows player stats',
                     usage: '+stats') do |e|
   p = Player.find(user: e.user.name)
@@ -176,9 +186,9 @@ bot.command(:stats, description: 'shows player stats',
   e << msg
 end
 
-bot.command(:test) do |_e|
-  Player::Level.([Player[3], Player[2]], [Monster[1], Monster[2]]) # e << dnd.race
-  # Player[1].name # Attack::Attack.determine_attacker(Monster.first)
+bot.command(:test) do |e|
+  # Player::Level.([Player[3], Player[2]], [Monster[1], Monster[2]]) # e << dnd.race
+  e << Player::Heal.long_rest([Player[2], Player[3]])
 end
 
 bot.command(:weapons, description: 'lists all weapons',
