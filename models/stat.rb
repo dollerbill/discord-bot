@@ -7,9 +7,9 @@
 #  dexterity    | integer                     | NOT NULL
 #  experience   | integer                     | NOT NULL DEFAULT 0
 #  hp           | integer                     | NOT NULL
+#  hp_max       | integer                     | NOT NULL
 #  intelligence | integer                     | NOT NULL
 #  level        | integer                     | NOT NULL DEFAULT 1
-#  max_hp       | integer                     | NOT NULL
 #  failure      | integer                     | NOT NULL DEFAULT 0
 #  success      | integer                     | NOT NULL DEFAULT 0
 #  strength     | integer                     | NOT NULL
@@ -17,8 +17,8 @@
 #  status       | text                        |
 #  alive        | boolean                     | NOT NULL DEFAULT true
 #  unconscious  | boolean                     | NOT NULL DEFAULT false
-#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.357746'::timestamp without time zone
-#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.357749'::timestamp without time zone
+#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.24872'::timestamp without time zone
+#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.248723'::timestamp without time zone
 # Indexes:
 #  stats_pkey | PRIMARY KEY btree (id)
 

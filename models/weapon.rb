@@ -5,8 +5,8 @@
 #  attack_roll | text                        |
 #  name        | text                        |
 #  type        | text                        |
-#  created_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.360841'::timestamp without time zone
-#  updated_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-05 23:59:33.360843'::timestamp without time zone
+#  created_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.251978'::timestamp without time zone
+#  updated_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.251981'::timestamp without time zone
 # Indexes:
 #  weapons_pkey | PRIMARY KEY btree (id)
 
