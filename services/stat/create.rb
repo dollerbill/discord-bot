@@ -1,18 +1,18 @@
+require_relative '../../models/stat'
+
 class Stat
   module Create
     MODEL_ATTS = %i[
       hp
-      level
       hp_max
-      monster_id
-      player_id
+      level
     ].freeze
 
     class << self
       def call(atts)
         stats = generate_stats
-        atts[hp: atts[:hit_die] + stats[5], hp_max: atts[:hit_die] + stats[5]] if atts[:hit_die]
         Stat.create(atts.slice(*MODEL_ATTS).merge!(
+                      hp: atts[:hit_die] + stats[5], hp_max: atts[:hit_die] + stats[5],
                       strength: stats[0], dexterity: stats[1], wisdom: stats[2],
                       intelligence: stats[3], charisma: stats[4], constitution: stats[5]
                     ))

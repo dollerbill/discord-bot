@@ -29,7 +29,7 @@ class Player
           15 => 165_000, 16 => 195_000, 17 => 225_000, 18 => 265_000, 19 => 305_000, 20 => 355_000
         }
         xps.each do |k, v|
-          p.set(level: k, hit_dice: k, hit_dice_max: k).save if p.experience >= v
+          p.set(level: k).save && player.set(hit_dice: k, hit_dice_max: k).save if p.experience >= v
         end
       end
 

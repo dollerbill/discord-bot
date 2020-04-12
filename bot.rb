@@ -1,12 +1,4 @@
-require 'dotenv/load'
-require 'discordrb'
-require 'faker'
-# require 'pg'
-require_relative 'Rakefile'
-require 'sequel'
-require_relative 'config/init/configure_sequel'
-require_relative 'config/init/configure_models'
-Dir['services/**/*.rb'].each { |file| require_relative file }
+require_relative 'config/environment'
 
 dnd = Faker::Games::DungeonsAndDragons
 bot = Discordrb::Commands::CommandBot.new(token: ENV['TOKEN'], prefix: '+')

@@ -1,3 +1,4 @@
+require 'dotenv/load'
 DB = Sequel.connect(ENV['DATABASE_URL'])
 
 Sequel.extension :core_extensions

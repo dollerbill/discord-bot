@@ -12,7 +12,7 @@ Metrics/BlockLength:
     - 'apps/*/application.rb'
     - 'db/migrations/*'
     - 'lib/tasks/*.rb'
-    - 'Rakefile.rb'
+    - 'RakeFile.rb'
     - 'spec/**/*.rb'
     - 'config/init/*.rb'
 Metrics/MethodLength:

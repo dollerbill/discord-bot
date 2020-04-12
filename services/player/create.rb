@@ -15,12 +15,12 @@ class Player
         Player.create(atts.slice(*MODEL_ATTS)
                               .merge!(hit_die: die)).tap do |p|
           # .merge!(attack: rand(1..10), hit_dice: "1d#{dice}")).tap do |p|
-          Stat::Create.create_player({ player_id: p[:id] })
+          Stat::Create.create_player({ hit_die: die, player_id: p[:id] })
         end
       end
 
       def character_atts(cclass)
-        case cclass
+        case cclass.downcase
         when 'barbarian'
           12
         when 'fighter', 'paladin', 'ranger'
