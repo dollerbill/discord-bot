@@ -1,3 +1,6 @@
+# TODO: should encounters be preset? only necessary monsters, items, etc ready to go?
+# TODO: should all monsters, items, etc be present in DB and DM can use when necessary?
+
 require_relative 'config/environment'
 
 dnd = Faker::Games::DungeonsAndDragons
@@ -26,11 +29,11 @@ bot.command(:award_items, description: 'award items after battle',
 end
 
 bot.command(:award_xp, description: 'award xp after battle',
-                       usage: '+ award_xp player,player monster,monster') do |e, p, m|
-  players = Array(p.split(','))
+                       usage: '+ award_xp player,player monster,monster') do |e, player_list, monster_list|
+  players = Array(player_list.split(','))
   next 'no players' unless players.each { |p| Player.first(name: p) }
 
-  monsters = Array(m.split(','))
+  monsters = Array(monster_list.split(','))
   next 'no monsters' unless monsters.each { |m| Monster.first(race: m) }
 
   players.map! { |p| Player.find(name: p) }
@@ -39,8 +42,8 @@ bot.command(:award_xp, description: 'award xp after battle',
 end
 
 bot.command(:long_rest, description: 'provides a long rest',
-                        usage: '+long_rest player,player,player ') do |e, p|
-  players = Array(p.split(','))
+                        usage: '+long_rest player,player,player ') do |e, player_list|
+  players = Array(player_list.split(','))
   next 'no players' unless players.each { |p| Player.first(name: p) }
 
   players.map! { |p| Player.find(name: p) }
@@ -80,7 +83,7 @@ bot.command(:save_throw, description: 'Makes a save throw',
   save_throw = Integer(roll, 10)
   Player::SaveThrow.(player, save_throw)
 end
-
+# TODO
 bot.command(:create_monster, description: 'hi',
                              usage: 'monster') do |event, boss|
   monster = Monster::Create.(boss)
@@ -178,14 +181,21 @@ bot.command(:stats, description: 'shows player stats',
   e << msg
 end
 
-bot.command(:test) do |e|
+bot.command(:test) do |_e|
   # Player::Level.([Player[3], Player[2]], [Monster[1], Monster[2]]) # e << dnd.race
-  e << Player::Heal.long_rest([Player[2], Player[3]])
+  # e << Player::Heal.long_rest([Player[2], Player[3]])
+  Attack::SaveThrow.(Player[2], 1)
 end
 
 bot.command(:weapons, description: 'lists all weapons',
                       usage: '+monsters') do |event|
   event << DB[:weapons].all.map { |w| w[:name] }
+end
+
+bot.command(:use_item, description: 'uses an item',
+                       usage: '+use_item potion_of_healing Tarvin') do |e, item, target|
+  target = Player.first(name: target) || Player.first(user: e.user.name)
+  e << Item::Use.(item, target)
 end
 
 bot.command(:use_weapon)

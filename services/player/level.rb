@@ -1,10 +1,12 @@
+require_relative '../../models/player'
+
 class Player
   module Level
     class << self
       def call(players, monsters)
         xp = calculate_xp(players, monsters)
         players.each do |p|
-          p.stat.set(experience: p.stat.experience += xp).save
+          p.stat.set(experience: :experience + xp).save
 
           level_up(p)
         end

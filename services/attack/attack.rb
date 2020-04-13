@@ -1,3 +1,5 @@
+require_relative '../../services/stat/dice_roll'
+
 class Attack
   module Attack
     class << self
@@ -19,6 +21,13 @@ class Attack
 
       private
 
+      def damage_item(item, target)
+        dice, extra = item.damage.split('+')
+        extra ||= 0
+        damage = Stat::DiceRoll.roll_for_damage(dice, extra)
+        deal_damage(target, damage)
+      end
+
       def damage_monster(attacked)
         attacked.stat.set(alive: false, hp: 0).save
         "#{determined_attacked(attacked)} was killed!"
@@ -26,11 +35,22 @@ class Attack
 
       def damage_player(attacked)
         attacked.stat.set(unconscious: true, hp: 0).save
-        "#{determined_attacked(attacked)} is unconscious!"
+        "#{determined_attacked(attacked)} is knocked unconscious!"
+      end
+
+      def deal_damage(attacked, damage)
+        if attacked.stat.hp > damage
+          attacked.stat.this.update(hp: :hp - damage)
+          "#{determined_attacked(attacked)} takes #{damage} points of damage!"
+        else
+          msg = damage_player(attacked) if player?(attacked)
+          msg = damage_monster(attacked) unless player?(attacked)
+          msg
+        end
       end
 
       def determine_attacker(attacker)
-        if attacker.is_a?(Player)
+        if player?(attacker)
           attacker.name.to_s
         else
           "The #{attacker.race}"
@@ -54,17 +74,6 @@ class Attack
           dice = attacker.attack_roll
         end
         Stat::DiceRoll.roll_for_damage(dice, attack)
-      end
-
-      def deal_damage(attacked, damage)
-        if attacked.stat.hp > damage
-          attacked.stat.update(hp: attacked.stat.hp - damage)
-          "#{determined_attacked(attacked)} takes #{damage} points of damage!"
-        else
-          msg = damage_player(attacked) if player?(attacked)
-          msg = damage_monster(attacked) unless player?(attacked)
-          msg
-        end
       end
 
       def modifier(player)

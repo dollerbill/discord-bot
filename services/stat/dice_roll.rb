@@ -1,3 +1,5 @@
+require_relative '../../models/stat'
+
 class Stat
   module DiceRoll
     class << self
@@ -15,7 +17,7 @@ class Stat
       def roll_for_damage(dice, attack)
         number, sides = dice.split('d')
         roll = call(number.to_i, sides.to_i)
-        roll[1] + attack
+        roll[1] + attack.to_i
       end
     end
   end

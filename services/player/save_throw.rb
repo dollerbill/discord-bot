@@ -1,3 +1,5 @@
+require_relative '../../models/player'
+
 class Attack
   module SaveThrow
     class << self
@@ -12,9 +14,7 @@ class Attack
           failing_throw(player)
         end
 
-        death(player) if player.stat.failure > 2
-        stabilize(player) if player.stat.success == 3
-        "#{player.name} has #{player.stat.success} successes and #{player.stat.failure} failures."
+        save_results(player.refresh)
       end
 
       def reset(player)
@@ -29,7 +29,15 @@ class Attack
       end
 
       def failing_throw(player, num = 1)
-        player.stat.set(failure: player.stat.failure += num)
+        player.stat.this.update(failure: :failure + num)
+      end
+
+      def save_results(player)
+        return death(player) if player.refresh.stat.failure > 2
+
+        return stabilize(player) if player.stat.success == 3
+
+        "#{player.name} has #{player.stat.success} successes and #{player.stat.failure} failures."
       end
 
       def stabilize(player)
@@ -38,7 +46,7 @@ class Attack
       end
 
       def saving_throw(player)
-        player.stat.set(success: player.stat.success += 1)
+        player.stat.this.update(success: :success + 1)
       end
     end
   end
