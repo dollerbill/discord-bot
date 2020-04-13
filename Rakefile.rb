@@ -2,10 +2,11 @@ require 'dotenv/load'
 require 'sequel'
 require 'rake/testtask'
 require 'pathname'
+#require 'config/environment'
 
 namespace :db do
   desc 'Run migrations'
-  task :migrate, [:version] do |t, args|
+  task :migrate, [:version] do |_t, args|
     require 'sequel/core'
     Sequel.extension :migration
     version = args[:version].to_i if args[:version]
@@ -36,7 +37,7 @@ desc 'Update model annotations'
 task :annotate do
   # Load the models first
   Sequel.connect(ENV['DATABASE_URL'])
-  Dir['models/*.rb'].each{|f| require_relative f}
+  Dir['models/*.rb'].each { |f| require_relative f }
 
   require 'sequel/annotate'
   Sequel::Annotate.annotate(Dir['models/*.rb'], position: :before)
@@ -44,3 +45,23 @@ end
 
 task m: ['generate:migration:create']
 task ma: ['generate:migration:alter']
+
+desc 'Open development console'
+task :console do
+  ENV['CONSOLE'] = 'true'
+
+  APP = OpenStruct.new
+  APP.env = ENV['RACK_ENV']
+  APP.root = Pathname.new(File.expand_path(__dir__)).freeze
+
+  req = Dir[APP.root.join('services/**/*.rb')].each { |file| "#{file}" }.join(' -r ')
+
+  begin
+    require 'pry'
+    system %(pry -r rubygems -r #{req})
+  rescue LoadError => _e
+    system %(irb -r rubygems -r #{req})
+  end
+end
+
+task c: :console
