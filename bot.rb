@@ -122,7 +122,7 @@ end
 bot.command(:monsters, description: 'lists all monsters in the bestiary',
                        usage: '+monsters') do |e|
   # event << '**All known monsters:**'
-  alive = Monster.where(alive: true)
+  alive = Monster.stat.where(alive: true)
   names = alive.map { |m| m[:name] }
   if alive.count == 0
     e << 'You see no monsters in the area.'

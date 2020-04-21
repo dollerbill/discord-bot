@@ -1,21 +1,28 @@
 require_relative '../../services/stat/dice_roll'
+require_relative '../../models/weapon'
 
-class Attack
+class Character
   module Attack
     class << self
-      def call(attacker, attacked, hit_roll, weapon)
-        name = determine_attacker(attacker)
-        if hit_roll == 1
-          "1! #{name} missed their attack by a mile."
-        elsif hit_roll == 20
-          msg = deal_damage(attacked, determine_damage(attacker, weapon))
-          "Critical hit! #{msg}"
-        else
-          hit_roll += modifier(attacker)
-          return "#{name} misses their attack!" unless hit_roll >= attacked.stat.armor_class
+      # TODO: weapon, spell == option
+      def call(attacker, attacked, hit_roll, *weapon)
+        attacker.model.db.transaction do
+          name = Character.determine_attacker(attacker)
+          return name + Character::ACTION_MESSAGE if attacker.stat.action == 0
 
-          dmg = determine_damage(attacker, weapon)
-          deal_damage(attacked, dmg)
+          attacker.stat.update(action: 0)
+          if hit_roll == 1
+            "1! #{name} missed their attack by a mile."
+          elsif hit_roll == 20
+            msg = deal_damage(attacked, determine_damage(attacker, weapon))
+            "Critical hit! #{msg}"
+          else
+            hit_roll += modifier(attacker)
+            return "#{name} misses their attack!" unless hit_roll >= attacked.stat.armor_class
+
+            dmg = determine_damage(attacker, weapon)
+            deal_damage(attacked, dmg)
+          end
         end
       end
 
@@ -30,18 +37,18 @@ class Attack
 
       def damage_monster(attacked)
         attacked.stat.set(alive: false, hp: 0).save
-        "#{determined_attacked(attacked)} was killed!"
+        "#{determine_attacked(attacked)} was killed!"
       end
 
       def damage_player(attacked)
         attacked.stat.set(unconscious: true, hp: 0).save
-        "#{determined_attacked(attacked)} is knocked unconscious!"
+        "#{determine_attacked(attacked)} is knocked unconscious!"
       end
 
       def deal_damage(attacked, damage)
         if attacked.stat.hp > damage
           attacked.stat.this.update(hp: :hp - damage)
-          "#{determined_attacked(attacked)} takes #{damage} points of damage!"
+          "#{determine_attacked(attacked)} takes #{damage} points of damage!"
         else
           msg = damage_player(attacked) if player?(attacked)
           msg = damage_monster(attacked) unless player?(attacked)
@@ -49,21 +56,21 @@ class Attack
         end
       end
 
-      def determine_attacker(attacker)
-        if player?(attacker)
-          attacker.name.to_s
-        else
-          "The #{attacker.race}"
-        end
-      end
-
-      def determined_attacked(attacked)
-        if player?(attacked)
-          attacked.name.to_s
-        else
-          "The #{attacked.race}"
-        end
-      end
+      # def determine_attacker(attacker)
+      #  if player?(attacker)
+      #    attacker.name.to_s
+      #  else
+      #    "The #{attacker.race}"
+      #  end
+      # end
+      #
+      # def determine_attacked(attacked)
+      #  if player?(attacked)
+      #    attacked.name.to_s
+      #  else
+      #    "The #{attacked.race}"
+      #  end
+      # end
 
       def determine_damage(attacker, weapon)
         if player?(attacker)

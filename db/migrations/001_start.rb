@@ -24,6 +24,8 @@ Sequel.migration do
       Integer :hit_die, null: false
       Integer :hit_dice, null: false, default: 1
       Integer :hit_dice_max, null: false, default: 1
+      column :spell_slots, :json, default: '{"one": 0, "two": 0, "three": 0, "four": 0, "five": 0}', null: false
+      column :spell_slots_max, :json, default: '{"one": 0, "two": 0, "three": 0, "four": 0, "five": 0}', null: false
       Bignum :stat_id
       Bignum :weapon_id
       DateTime :created_at, size: 6, null: false, default: Time.now
@@ -36,6 +38,8 @@ Sequel.migration do
     create_table(:stats, ignore_index_errors: true) do
       primary_key :id, type: :Bignum
       Integer :armor_class
+      Integer :action, null: false, default: 1
+      Integer :bonus_action, null: false, default: 1
       Integer :charisma, null: false
       Integer :constitution, null: false
       Integer :dexterity, null: false
