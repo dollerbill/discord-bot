@@ -5,10 +5,13 @@
 #  attack_roll | text                        |
 #  name        | text                        |
 #  type        | text                        |
-#  created_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.251978'::timestamp without time zone
-#  updated_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.251981'::timestamp without time zone
+#  created_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-22 01:30:15.959451'::timestamp without time zone
+#  updated_at  | timestamp without time zone | NOT NULL DEFAULT '2020-04-22 01:30:15.959455'::timestamp without time zone
 # Indexes:
 #  weapons_pkey | PRIMARY KEY btree (id)
+
+require 'sequel'
+require_relative '../config/init/configure_sequel'
 
 Sequel::Model.plugin :dirty
 Sequel.extension :core_extensions

@@ -29,11 +29,11 @@ bot.command(:award_items, description: 'award items after battle',
 end
 
 bot.command(:award_xp, description: 'award xp after battle',
-                       usage: '+ award_xp player,player monster,monster') do |e, player_list, monster_list|
-  players = Array(player_list.split(','))
+                       usage: '+ award_xp player,player monster,monster') do |e, p_list, m_list|
+  players = Array(p_list.split(','))
   next 'no players' unless players.each { |p| Player.first(name: p) }
 
-  monsters = Array(monster_list.split(','))
+  monsters = Array(m_list.split(','))
   next 'no monsters' unless monsters.each { |m| Monster.first(race: m) }
 
   players.map! { |p| Player.find(name: p) }
@@ -171,6 +171,14 @@ bot.command(:short_rest, description: 'provides a player a short rest',
   next 'incorrect hit dice roll' unless roll <= p.hit_die
 
   e << Player::Heal.short_rest(p, roll)
+end
+
+bot.command(:spells, description: 'show player spells stats',
+                     usage: '+spells') do |e|
+  cc = Player.find(user: e.user.name).character_class
+  e << 'Barbarians cannot use spells' if cc == 'barbarian'
+  spells = cc.spells.map(:name)
+  e << "Available spells for #{cc} are: #{spells.each { |s| print s }}"
 end
 
 bot.command(:stats, description: 'shows player stats',

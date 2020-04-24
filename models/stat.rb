@@ -2,6 +2,8 @@
 # Columns:
 #  id           | bigint                      | PRIMARY KEY DEFAULT nextval('stats_id_seq'::regclass)
 #  armor_class  | integer                     |
+#  action       | integer                     | NOT NULL DEFAULT 1
+#  bonus_action | integer                     | NOT NULL DEFAULT 1
 #  charisma     | integer                     | NOT NULL
 #  constitution | integer                     | NOT NULL
 #  dexterity    | integer                     | NOT NULL
@@ -17,10 +19,13 @@
 #  status       | text                        |
 #  alive        | boolean                     | NOT NULL DEFAULT true
 #  unconscious  | boolean                     | NOT NULL DEFAULT false
-#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.24872'::timestamp without time zone
-#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-07 00:39:30.248723'::timestamp without time zone
+#  created_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-22 01:30:15.955884'::timestamp without time zone
+#  updated_at   | timestamp without time zone | NOT NULL DEFAULT '2020-04-22 01:30:15.955887'::timestamp without time zone
 # Indexes:
 #  stats_pkey | PRIMARY KEY btree (id)
+
+require 'sequel'
+require_relative '../config/init/configure_sequel'
 
 class Stat < Sequel::Model
   one_to_one :monster

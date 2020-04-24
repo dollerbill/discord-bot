@@ -4,5 +4,5 @@ require_relative '../../config/init/configure_models'
 classes = %w[barbarian bard cleric druid fighter monk
              paladin ranger rogue sorcerer warlock wizard]
 classes.each do |c|
-  Classes.create(name: c)
+  CharacterClass.create(name: c)
 end
