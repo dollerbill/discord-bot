@@ -7,7 +7,7 @@ class Character
       # TODO: weapon, spell == option
       def call(attacker, attacked, hit_roll, *weapon)
         attacker.model.db.transaction do
-          name = Character.determine_attacker(attacker)
+          name = Character.determine_user(attacker)
           return name + Character::ACTION_MESSAGE if attacker.stat.action == 0
 
           attacker.stat.update(action: 0)
@@ -26,6 +26,10 @@ class Character
         end
       end
 
+      def player?(player)
+        player.is_a?(Player)
+      end
+
       private
 
       def damage_item(item, target)
@@ -37,18 +41,18 @@ class Character
 
       def damage_monster(attacked)
         attacked.stat.set(alive: false, hp: 0).save
-        "#{determine_attacked(attacked)} was killed!"
+        "#{Character.determine_attacked(attacked)} was killed!"
       end
 
       def damage_player(attacked)
         attacked.stat.set(unconscious: true, hp: 0).save
-        "#{determine_attacked(attacked)} is knocked unconscious!"
+        "#{Character.determine_attacked(attacked)} is knocked unconscious!"
       end
 
       def deal_damage(attacked, damage)
         if attacked.stat.hp > damage
           attacked.stat.this.update(hp: :hp - damage)
-          "#{determine_attacked(attacked)} takes #{damage} points of damage!"
+          "#{Character.determine_attacked(attacked)} takes #{damage} points of damage!"
         else
           msg = damage_player(attacked) if player?(attacked)
           msg = damage_monster(attacked) unless player?(attacked)
@@ -92,10 +96,6 @@ class Character
         when 'melee'
           player.stat.dexterity
         end
-      end
-
-      def player?(player)
-        player.is_a?(Player)
       end
     end
   end

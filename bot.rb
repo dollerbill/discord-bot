@@ -69,6 +69,13 @@ bot.command(:monster_attack, description: 'attacks a monster',
   e << Attack::Attack.(monster, player, hit_roll, nil)
 end
 
+bot.command(:start_combat, description: 'Starts a round of combat',
+            usage: '+start_combat Player1 Monster1 Monster2') do |e, *combatants|
+  combatants.map! { |n| Player.first(name: n) || Monster.first(race: n) }
+  #e << combatants
+  e << Combat::Start.(combatants)
+end
+
 bot.command(:start_game, description: 'Begins a new game',
                          usage: '+start_game') do |e|
   Rake::Task['db:reset'].reenable
