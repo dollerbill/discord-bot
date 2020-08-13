@@ -22,9 +22,8 @@ class Player
       def long_rest(players)
         players.each do |p|
           call(p, p.stat.hp_max)
-          current = p.hit_dice
           total = p.hit_dice_max
-          regained = (total / 2).floor + current <= total ? (total / 2).floor : total
+          regained = half_dice(total) + p.hit_dice <= total ? half_dice(total) : total
           regained = regained == 0 ? 1 : regained
           p.set(hit_dice: regained).save
           return "#{p.name} now has #{p.stat.hp} hp and #{p.hit_dice} hit dice."
@@ -40,6 +39,12 @@ class Player
         regained = rested + player.stat.hp <= player.stat.hp_max ? rested : player.stat.hp_max
         call(player, regained)
         "#{player.name} now has #{player.stat.hp} hp and #{player.hit_dice} hit dice."
+      end
+
+      private
+
+      def half_dice(hp)
+        (hp / 2).floor
       end
     end
   end

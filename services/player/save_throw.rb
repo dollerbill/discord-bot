@@ -1,6 +1,6 @@
 require_relative '../../models/player'
 
-class Attack
+class Player
   module SaveThrow
     class << self
       def call(player, save_throw)
@@ -41,6 +41,8 @@ class Attack
       end
 
       def stabilize(player)
+        return "#{player.name} is already stable" unless player.stat.unconscious?
+
         player.stat.set(hp: 1, success: 0, failure: 0, unconscious: false).save
         "#{player.name} has gained 1 HP."
       end

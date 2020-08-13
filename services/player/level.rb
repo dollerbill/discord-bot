@@ -35,6 +35,23 @@ class Player
         end
       end
 
+      def mods(monsters)
+        case monsters.count
+        when 1
+          1
+        when 2
+          1.5
+        when 3, 4, 5, 6
+          2
+        when 7, 8, 9, 10
+          2.5
+        when 11, 12, 13, 14
+          3
+        else
+          4
+        end
+      end
+
       def modifier(monsters)
         mod = if monsters.count == 1
                 1

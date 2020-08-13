@@ -61,10 +61,14 @@ Sequel.migration do
 
     create_table(:weapons) do
       primary_key :id, type: :Bignum
-      Integer :attack
-      String :attack_roll
       String :name
-      String :type
+      String :weapon_type
+      String :cost
+      String :damage
+      String :damage_type
+      String :range
+      String :weight
+      String :properties
       DateTime :created_at, size: 6, null: false, default: Time.now
       DateTime :updated_at, size: 6, null: false, default: Time.now
     end

@@ -1,9 +1,10 @@
 # TODO: should encounters be preset? only necessary monsters, items, etc ready to go?
 # TODO: should all monsters, items, etc be present in DB and DM can use when necessary?
 
+# TODO: ALL DM METHODS NEED 'unless e.user.name == Player[1].user'
 require_relative 'config/environment'
 
-dnd = Faker::Games::DungeonsAndDragons
+dnd = Faker::Games::DnD
 bot = Discordrb::Commands::CommandBot.new(token: ENV['TOKEN'], prefix: '+')
 t = Time.now
 
@@ -70,10 +71,10 @@ bot.command(:monster_attack, description: 'attacks a monster',
 end
 
 bot.command(:start_combat, description: 'Starts a round of combat',
-            usage: '+start_combat Player1 Monster1 Monster2') do |e, *combatants|
+                           usage: '+start_combat Player1 Monster1 Monster2') do |e, *combatants|
   combatants.map! { |n| Player.first(name: n) || Monster.first(race: n) }
-  #e << combatants
-  e << Combat::Start.(combatants)
+  # e << combatants
+  e << Action::Start.(combatants)
 end
 
 bot.command(:start_game, description: 'Begins a new game',
@@ -134,7 +135,8 @@ bot.command(:monsters, description: 'lists all monsters in the bestiary',
   if alive.count == 0
     e << 'You see no monsters in the area.'
   elsif alive.count == 1
-    e << "You see a #{alive.first[:name]}!"
+    a = alive.first[:name].match?(/^[aeiouy]/i) ? 'an' : 'a'
+    e << "You see #{a} #{alive.first[:name]}!"
   else
     msg = "You're surrounded by "
     names.each_with_index do |m, i|
@@ -203,7 +205,7 @@ bot.command(:test) do |_e|
 end
 
 bot.command(:weapons, description: 'lists all weapons',
-                      usage: '+monsters') do |event|
+                      usage: '+weapons') do |event|
   event << DB[:weapons].all.map { |w| w[:name] }
 end
 

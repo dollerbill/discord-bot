@@ -5,7 +5,7 @@ class Character
   module Attack
     class << self
       # TODO: weapon, spell == option
-      def call(attacker, attacked, hit_roll, *weapon)
+      def call(attacker, attacked, hit_roll, spell: nil, weapon: nil)
         attacker.model.db.transaction do
           name = Character.determine_user(attacker)
           return name + Character::ACTION_MESSAGE if attacker.stat.action == 0
@@ -78,8 +78,8 @@ class Character
 
       def determine_damage(attacker, weapon)
         if player?(attacker)
-          attack = weapon.attack
-          dice = weapon.attack_roll
+          attack = weapon.damage.split('d')[0]
+          dice = weapon.damage.split('d')[0]
         else
           attack = attacker.attack
           dice = attacker.attack_roll
@@ -90,7 +90,7 @@ class Character
       def modifier(player)
         return 0 unless player?(player)
 
-        case player.weapon.type
+        case player.weapon.weapon_type
         when 'ranged'
           player.stat.strength
         when 'melee'

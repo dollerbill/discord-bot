@@ -1,0 +1,624 @@
+[{
+  "Name": "Club",
+  "Cost": "1 sp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Light"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Dagger",
+  "Cost": "2 gp",
+  "Damage": "1d4 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Light", "Finesse", "Thrown (20/60)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Greatclub",
+  "Cost": "2 sp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "10 lb",
+  "Properties": ["Two-handed"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Handaxe",
+  "Cost": "5 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "2 lb",
+  "Properties": ["Light", "Thrown (20/60)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Javelin",
+  "Cost": "5 sp",
+  "Damage": "1d6 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Thrown (30/120)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Light Hammer",
+  "Cost": "2 gp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Light", "Thrown (20/60)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Mace",
+  "Cost": "5 gp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": [],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Quarterstaff",
+  "Cost": "2 sp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "4 lb",
+  "Properties": ["Versatile (1d8)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Sickle",
+  "Cost": "1 gp",
+  "Damage": "1d4 slashing",
+  "Weight": "2 lb",
+  "Properties": ["Light"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Spear",
+  "Cost": "1 gp",
+  "Damage": "1d4 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Thrown (20/60)", "Versatile (1d8)"],
+  "Weapon_type": "melee simple"
+}, {
+  "Name": "Crossbow, light",
+  "Cost": "25 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "5 lb",
+  "Properties": ["Ammunition (80/320)", "Loading", "Two-Handed"],
+  "Weapon_type": "ranged simple"
+}, {
+  "Name": "Dart",
+  "Cost": "5 cp",
+  "Damage": "1d4 piercing",
+  "Weight": "0.25 lb",
+  "Properties": ["Finesse", "Thrown (20/60)"],
+  "Weapon_type": "ranged simple"
+}, {
+  "Name": "Shortbow",
+  "Cost": "25 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Ammunition (80/320)", "Two-handed"],
+  "Weapon_type": "ranged simple"
+}, {
+  "Name": "Sling",
+  "Cost": "1 sp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "",
+  "Properties": ["Ammunition (30/120)"],
+  "Weapon_type": "ranged simple"
+}, {
+  "Name": "Slingstaff",
+  "Cost": "2 sp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Ammunition (30/120)", "Two-handed"],
+  "Weapon_type": "ranged simple"
+}, {
+  "Name": "Atlatl",
+  "Cost": "5 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Ammunition", "Range (50-100)", "Special"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Blowgun",
+  "Cost": "10 gp",
+  "Damage": "1 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Ammunition", "Range (25/100)", "Loading"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Bolas",
+  "Cost": "1 gp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Special", "Thrown (20/60)"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Boomerang",
+  "Cost": "2 gp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "1 lb",
+  "Properties": ["Special", "Thrown (20/60)"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Chakram",
+  "Cost": "5 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "0.5 lb",
+  "Properties": ["Finesse", "Thrown (20/60)"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Chatkcha",
+  "Cost": "1 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "2 lb",
+  "Properties": ["Finesse", "Light", "Thrown (30/120)", "Special"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Crossbow, Hand",
+  "Cost": "75 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "3 lb",
+  "Properties": ["Ammunition", "Range (30/120)", "Light", "Loading"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Crossbow, Heavy",
+  "Cost": "50 gp",
+  "Damage": "1d10 piercing",
+  "Weight": "18 lb",
+  "Properties": ["Ammunition", "Range (100/400)", "Heavy", "Loading", "Two-Handed"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Crossbow, Repeating",
+  "Cost": "250 gp",
+  "Damage": "2d4 piercing",
+  "Weight": "18 lb",
+  "Properties": ["Ammunition", "Range (80/320)", "Heavy", "Two-Handed"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Longbow",
+  "Cost": "50 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Ammunition", "Range (150/600)", "Heavy", "Two-Handed"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Net",
+  "Cost": "1 gp",
+  "Damage": "",
+  "Weight": "3 lb",
+  "Properties": ["Special", "Range (5/15)", "Thrown"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Throwing Hammer",
+  "Cost": "15 gp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "4 lb",
+  "Properties": ["Thrown (60/120)"],
+  "Weapon_type": "ranged martial"
+}, {
+  "Name": "Arming Sword",
+  "Cost": "20 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "3 lb",
+  "Properties": ["Light", "Finesse", "Versatile (1d8)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Back Sword",
+  "Cost": "10 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "3 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Battleaxe",
+  "Cost": "10 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "4 lb",
+  "Properties": ["Versatile (1d10)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Bec de Corbin",
+  "Cost": "20 gp",
+  "Damage": "2d4 piercing",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Boar Spear",
+  "Cost": "10 gp",
+  "Damage": "2d6 piercing",
+  "Weight": "5 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Broadsword",
+  "Cost": "20 gp",
+  "Damage": "2d4 piercing",
+  "Weight": "3 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Buster Sword",
+  "Cost": "250 gp",
+  "Damage": "2d8 slashing",
+  "Weight": "12 lb",
+  "Properties": ["Oversized", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Chaind, Bladed",
+  "Cost": "8 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Finesse", "Reach", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Chaind, Spiked",
+  "Cost": "8 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Finesse", "Reach", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Chaind, Weighted",
+  "Cost": "8 gp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Finesse", "Reach", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Cutlass",
+  "Cost": "10 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "2 lb",
+  "Properties": ["Light"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Double Axe",
+  "Cost": "30 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Two-Handed", "Double Weapon"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Double Flail",
+  "Cost": "20 gp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "4 lb",
+  "Properties": ["Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Double Sword",
+  "Cost": "20 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "5 lb",
+  "Properties": ["Double Weapon", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Dueling Shield",
+  "Cost": "15 gp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Dwarven Ugrosh",
+  "Cost": "50 gp",
+  "Damage": "1d10 slashing",
+  "Weight": "9 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Elven Lightblade",
+  "Cost": "50 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Finesse", "Light", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Elven Thinblade",
+  "Cost": "100 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Finesse", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Epee",
+  "Cost": "50 gp",
+  "Damage": "1d2 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Special", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Estoc",
+  "Cost": "25 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "3 lb",
+  "Properties": ["Versatile (1d10)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Faeblades",
+  "Cost": "50 gp",
+  "Damage": "2d4 slashing",
+  "Weight": "2.5 lb",
+  "Properties": ["Light", "Finesse", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Falchion",
+  "Cost": "10 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "3 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Flail",
+  "Cost": "10 gp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Glaive",
+  "Cost": "20 gp",
+  "Damage": "1d10 slashing",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Greataxe",
+  "Cost": "30 gp",
+  "Damage": "1d12 slashing",
+  "Weight": "7 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Great Maul",
+  "Cost": "150 gp",
+  "Damage": "3d6 bludgeoning",
+  "Weight": "145 lb",
+  "Properties": ["Oversized", "Two-Handed", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Greatsword",
+  "Cost": "50 gp",
+  "Damage": "2d6 slashing",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Guisarme",
+  "Cost": "15 gp",
+  "Damage": "2d4 slashing",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Gythka",
+  "Cost": "20 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "9 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Halberd",
+  "Cost": "20 gp",
+  "Damage": "1d10 slashing",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Heavy Flail",
+  "Cost": "20 gp",
+  "Damage": "1d12 bludgeoning",
+  "Weight": "7 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Hidden Blade",
+  "Cost": "100 gp",
+  "Damage": "1d4 piercing",
+  "Weight": "0.5 lb",
+  "Properties": ["Light", "Finesse", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Katana",
+  "Cost": "50 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Versatile (1d10)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Lajav",
+  "Cost": "30 gp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "5 lb",
+  "Properties": ["Finesse", "Heavy", "Two-Handed", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Lance",
+  "Cost": "10 gp",
+  "Damage": "1d12 piercing",
+  "Weight": "6 lb",
+  "Properties": ["Reach", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Longspear",
+  "Cost": "3 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "4 lb",
+  "Properties": ["Heavy", "Reach", "Versatile (1d8)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Longstaff",
+  "Cost": "5 sp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "7 lb",
+  "Properties": ["Heavy", "Reach", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Longsword",
+  "Cost": "15 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Versatile (1d10)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Main Gauche",
+  "Cost": "5 gp",
+  "Damage": "1d4 piercing",
+  "Weight": "1 lb",
+  "Properties": ["Finesse", "Light", "Special", "Thrown (20/60)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Man Catcher",
+  "Cost": "25 gp",
+  "Damage": "1d4 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Reach", "Two-Handed", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Maul",
+  "Cost": "10 gp",
+  "Damage": "2d6 bludgeoning",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Meteor Hammer",
+  "Cost": "30 gp",
+  "Damage": "1d6 bludgeoning",
+  "Weight": "5 lb",
+  "Properties": ["Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Monk's Spade",
+  "Cost": "10 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "4 lb",
+  "Properties": ["Reach", "Versatile (1d8)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Morningstar",
+  "Cost": "15 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "4 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Parrying Dagger",
+  "Cost": "5 gp",
+  "Damage": "1d4 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Light", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Pike",
+  "Cost": "5 gp",
+  "Damage": "1d10 piercing",
+  "Weight": "18 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Rapier",
+  "Cost": "25 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Pollaxe",
+  "Cost": "20 gp",
+  "Damage": "2d4 bludgeoning",
+  "Weight": "6 lb",
+  "Properties": ["Heavy", "Reach", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Saber",
+  "Cost": "35 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Light", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Scimitar",
+  "Cost": "25 gp",
+  "Damage": "1d6 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Light", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Shortsword",
+  "Cost": "10 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "2 lb",
+  "Properties": ["Light", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Side Sword",
+  "Cost": "25 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "2.5 lb",
+  "Properties": ["Light", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Small Sword",
+  "Cost": "10 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "1.5 lb",
+  "Properties": ["Light", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Sword Breaker",
+  "Cost": "15 gp",
+  "Damage": "1d4 slashing",
+  "Weight": "2 lb",
+  "Properties": ["Light", "Special"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Talwar",
+  "Cost": "30 gp",
+  "Damage": "1d8 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Trident",
+  "Cost": "5 gp",
+  "Damage": "1d6 piercing",
+  "Weight": "4 lb",
+  "Properties": ["Thrown (20/60)", "Versatile (1d8)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Two-Handed Morningstar",
+  "Cost": "25 gp",
+  "Damage": "1d12 piercing",
+  "Weight": "10 lb",
+  "Properties": ["Heavy", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "War Pick",
+  "Cost": "5 gp",
+  "Damage": "1d8 piercing",
+  "Weight": "2 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "War Hammer",
+  "Cost": "15 gp",
+  "Damage": "1d8 bludgeoning",
+  "Weight": "2 lb",
+  "Properties": ["Versatile (1d10)"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Warcleaver",
+  "Cost": "25 gp",
+  "Damage": "1d8 slashing/bludgeoning",
+  "Weight": "5 lb",
+  "Properties": [],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Whip",
+  "Cost": "2 gp",
+  "Damage": "1d4 slashing",
+  "Weight": "3 lb",
+  "Properties": ["Reach", "Finesse"],
+  "Weapon_type": "melee martial"
+}, {
+  "Name": "Zweihänder",
+  "Cost": "100 gp",
+  "Damage": "2d8 slashing",
+  "Weight": "9 lb",
+  "Properties": ["Heavy", "Reach", "Special", "Two-Handed"],
+  "Weapon_type": "melee martial"
+}]
