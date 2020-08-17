@@ -2,7 +2,7 @@
 
 require_relative '../../models/character_class'
 require_relative '../../models/character_classes_spells'
-# require_relative '../../models/action'
+require_relative '../../models/combat'
 require_relative '../../models/item'
 require_relative '../../models/monster'
 require_relative '../../models/player'

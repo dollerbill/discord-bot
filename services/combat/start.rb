@@ -1,21 +1,23 @@
-require_relative '../../models/character_action'
+require_relative '../../models/combat'
 
-class CharacterAction
+class Combat
   module Start
+    MSG = 'must end previous turn before proceeding.'.freeze
     class << self
       def call(combatants)
-        CharacterAction.db.transaction do
-          # .order(:created_at).last ?
-          return false if CharacterAction.first(complete: false)
+        Combat.db.transaction do
+          return MSG if Combat.order(:id.asc).last(complete: false)
 
           order = combatants.map do |c|
-            names = if Character::Attack.player?(c)
-                      c.name
-                    else c.race
-                    end
+            names = []
+            names << if Character::Attack.player?(c)
+                       c.name
+                     else
+                       c.race
+                     end
             names.join(', ') # unless c == combatants[-1]
           end
-          CharacterAction.create(combatants: order)
+          Combat.create(combatants: order)
           reset(combatants)
           "Combat order is #{order}"
         end

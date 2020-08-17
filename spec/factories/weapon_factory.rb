@@ -1,10 +1,4 @@
-#require 'faker'
-Toil.register(:player, ->(*args) { Player.create(*args) }) do
-  name { Faker::Games::DnD.name }
-  alignment { Faker::Games::DnD.alignment }
-  race { Faker::Games::DnD.race }
-  character_class { Faker::Games::DnD.klass }
-  hit_die do
-    Player::Create.character_atts(character_class)
-  end
+Toil.register(:weapon, ->(*args) { Weapon.create(*args) }) do
+  attack { rand(1..20) }
+  name %w[knife dagger sword bow net axe javelin].sample
 end

@@ -1,6 +1,6 @@
 Sequel.migration do
   up do
-    create_table(:character_actions) do
+    create_table(:combats) do
       primary_key :id, type: :Bignum
       column :combatants, :text
       column :complete, :bool, default: false, null: false
@@ -8,6 +8,6 @@ Sequel.migration do
   end
 
   down do
-    drop_table :character_actions
+    drop_table :combats
   end
 end
